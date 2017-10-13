@@ -105,6 +105,9 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 				nodeStack.push(current);
 				current = current.getLeftChild();
 			}
+			if(!nodeStack.isEmpty()) {
+				next = nodeStack.pop();
+			}
 			return null;
 		}
 
