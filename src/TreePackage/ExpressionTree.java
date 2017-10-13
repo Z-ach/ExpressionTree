@@ -1,6 +1,7 @@
 package TreePackage;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Stack;
 
 public class ExpressionTree extends BinaryTree<String> implements ExpressionTreeInterface<String>{
@@ -13,11 +14,12 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 		postfix = args;
 	}
 	
-	
-	
-	
 	public double evaluate() {
 		return evaluate(postfixToExpressionTree(postfix).getRootNode());
+	}
+	
+	public void setVariable(String str, double d){
+		variables.put(str, new Variable(str, d));
 	}
 	
 	private double evaluate(BinaryNode<String> rootNode) {
@@ -26,7 +28,10 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 			result = 0;
 		}else if(rootNode.isLeaf()) {
 			String root = rootNode.getData();
-			result = variables.get(root).getValue();
+			if(isVariable(root))
+				result = variables.get(root).getValue();
+			else
+				result = Double.parseDouble(root);
 		}else {
 			double firstOp = evaluate(rootNode.getLeftChild());
 			double secondOp = evaluate(rootNode.getRightChild());
@@ -89,6 +94,10 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 	}
 	
 	public void displayPostfix() {
-		
+		String post = "";
+		Iterator<String> it = postfixToExpressionTree(postfix).getPostorderIterator();
+		while(it.hasNext())
+			post += it.next() + " ";
+		System.out.println(post);
 	}
 }

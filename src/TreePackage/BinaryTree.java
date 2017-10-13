@@ -92,14 +92,25 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 		public PostorderIterator() {
 			nodeStack = new Stack<>();
 			current = root;
+			populateStack(current);
+		}
+		
+		private void populateStack(BinaryNode<T> node){
+			nodeStack.add(node);
+			if(node.hasRightChild()){
+				populateStack(node.getRightChild());
+			}
+			if(node.hasLeftChild()){
+				populateStack(node.getLeftChild());
+			}
 		}
 
 		public boolean hasNext() {
-			return (current != null) || !nodeStack.isEmpty();
+			return !nodeStack.isEmpty();
 		}
 
 		public T next() {
-			BinaryNode<T> next = null;
+/*			BinaryNode<T> next = null;
 
 			while (current != null) {
 				nodeStack.push(current);
@@ -107,8 +118,9 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 			}
 			if(!nodeStack.isEmpty()) {
 				next = nodeStack.pop();
-			}
-			return null;
+				assert next != null;
+			}*/
+			return nodeStack.pop().getData();
 		}
 
 	}

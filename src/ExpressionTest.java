@@ -1,13 +1,11 @@
+import TreePackage.ExpressionTree;
 
 public class ExpressionTest {
 	public static void main(String[] args) {
-		try {
-			throw new Exception();
-		}catch(Exception e) {
-			System.err.println("Level Order not supported.");
-		}
-		for(int i = 0; i < 10; i++){
-			System.out.println("Hi");
-		}
+		ExpressionTree exp = new ExpressionTree(new String[]{"a", "b", "2", "/","+"});
+		exp.setVariable("a", 1.5);
+		exp.setVariable("b", 2);
+		System.out.println(exp.evaluate());
+		exp.displayPostfix();
 	}
 }
