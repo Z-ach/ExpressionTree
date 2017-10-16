@@ -50,9 +50,9 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 		case "*":
 			return first * second;
 		case "/":
+			if (second == 0)
+			    throw new IllegalArgumentException("Cannot divide by zero");
 			return first / second;
-		default:
-			//PUT EXCEPTION HERE, THIS SHOULD NOT BE REACHED
 		}
 		return 0;
 	}
@@ -63,7 +63,10 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 			if(isVariable(token) || isDouble(token)) {
 				stack.push(new BinaryTree<String>(token));
 				continue;
-			}else if(isOperator(token)) {
+			}else if(!isOperator(token) && !isVariable(token) && !isDouble(token)) {
+				throw new IllegalArgumentException("Variable not given value.");
+			}
+			else if(isOperator(token)) {
 				BinaryTree<String> right = stack.pop();
 				BinaryTree<String> left = stack.pop();
 				stack.push(new BinaryTree<String>(token, left, right));

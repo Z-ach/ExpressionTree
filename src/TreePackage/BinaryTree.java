@@ -76,10 +76,8 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 
 	public Iterator<T> getLevelorderIterator() {
 		try {
-			throw new Exception();
+			throw new UnsupportedOperationException("Level Order not supported.");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.err.println("Level Order not supported.");
 		}
 		return null;
 	}
