@@ -1,3 +1,14 @@
+//
+// Name: Kaufman, Zach
+// Project: #1
+// Due: 10/20/2017
+// Course: cs-241-02-f17
+//
+// Description:
+// This is a project from the text book, from chapter 24 project #3. This project is the implementation of an expression tree.
+// The program must take in a postfix expression, convert it to an expression tree, evaluate the expression tree, then display the
+// postfix expression using a postfix tree traversal. All exceptions must be handled properly.
+//
 package TreePackage;
 
 import java.util.HashMap;
@@ -51,7 +62,7 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 			return first * second;
 		case "/":
 			if (second == 0)
-			    throw new IllegalArgumentException("Cannot divide by zero");
+			    throw new ArithmeticException("Cannot divide by zero");
 			return first / second;
 		}
 		return 0;
@@ -64,7 +75,7 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 				stack.push(new BinaryTree<String>(token));
 				continue;
 			}else if(!isOperator(token) && !isVariable(token) && !isDouble(token)) {
-				throw new IllegalArgumentException("Variable not given value.");
+				throw new IllegalArgumentException("Variable must be defined.");
 			}
 			else if(isOperator(token)) {
 				BinaryTree<String> right = stack.pop();
