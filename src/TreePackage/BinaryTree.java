@@ -74,11 +74,11 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 	}
 
 	public Iterator<T> getPreorderIterator() {
-		return null;
+		throw new UnsupportedOperationException("Preorder not supported.");
 	}
 
 	public Iterator<T> getInorderIterator() {
-		return null;
+		throw new UnsupportedOperationException("Inorder not supported.");
 	}
 
 	public Iterator<T> getPostorderIterator() {
@@ -86,11 +86,7 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 	}
 
 	public Iterator<T> getLevelorderIterator() {
-		try {
-			throw new UnsupportedOperationException("Level Order not supported.");
-		} catch (Exception e) {
-		}
-		return null;
+		throw new UnsupportedOperationException("Level Order not supported.");
 	}
 
 	private class PostorderIterator implements Iterator<T> {
@@ -119,16 +115,6 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 		}
 
 		public T next() {
-/*			BinaryNode<T> next = null;
-
-			while (current != null) {
-				nodeStack.push(current);
-				current = current.getLeftChild();
-			}
-			if(!nodeStack.isEmpty()) {
-				next = nodeStack.pop();
-				assert next != null;
-			}*/
 			return nodeStack.pop().getData();
 		}
 
