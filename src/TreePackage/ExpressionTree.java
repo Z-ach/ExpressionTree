@@ -110,8 +110,12 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 	public void displayPostfix() {
 		String post = "";
 		Iterator<String> it = postfixToExpressionTree(postfix).getPostorderIterator();
-		while(it.hasNext())
-			post += it.next() + " ";
+		while(it.hasNext()) {
+			post += it.next();
+			if(it.hasNext()) {
+				post += " ";
+			}
+		}
 		System.out.println(post);
 	}
 }
