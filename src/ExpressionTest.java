@@ -14,12 +14,20 @@ import TreePackage.*;
 
 public class ExpressionTest {
 	public static void main(String[] args) {
-		ExpressionTree exp = new ExpressionTree(new String[]{"a", "b", "2", "/","+"});
+		System.out.println("Z. Kaufman's Expression Tree");
+		//ExpressionTree exp = new ExpressionTree(new String[]{"a", "b", "2", "/","+"});
+		ExpressionTree exp = new ExpressionTree(new String[]{"a", "2", "+", "3", "b", "7", "a", "*", "+", "*", "-"});
 		
-		exp.setVariable("z", 1.5);
+		exp.setVariable("", 1.5);
 		exp.setVariable("b", 2);
 		exp.setVariable("a", 2);
+		
+		//exp.clear();
 		System.out.println(exp.evaluate());
 		exp.displayPostfix();
+		System.out.println("Height: " + exp.getHeight());
+		System.out.println("Number of nodes: " + exp.getNumberOfNodes());
+		
+		
 	}
 }

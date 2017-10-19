@@ -18,15 +18,14 @@ import java.util.Stack;
 public class ExpressionTree extends BinaryTree<String> implements ExpressionTreeInterface<String>{
 	
 	private HashMap<String, Variable> variables;
-	private String[] postfix;
 	
 	public ExpressionTree(String[] args) {
 		variables = new HashMap<String, Variable>();
-		postfix = args;
+		postfixToExpressionTree(args);
 	}
 	
 	public double evaluate() {
-		return evaluate(postfixToExpressionTree(postfix).getRootNode());
+		return evaluate(getRootNode());
 	}
 	
 	public void setVariable(String str, double d){
@@ -41,8 +40,10 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 			String root = rootNode.getData();
 			if(isVariable(root))
 				result = variables.get(root).getValue();
-			else
+			else if(isDouble(root))
 				result = Double.parseDouble(root);
+			else
+				throw new IllegalArgumentException("Variable must be defined.");
 		}else {
 			double firstOp = evaluate(rootNode.getLeftChild());
 			double secondOp = evaluate(rootNode.getRightChild());
@@ -71,16 +72,15 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 	private BinaryTree<String> postfixToExpressionTree(String[] postfix){
 		Stack<BinaryTree<String>> stack = new Stack<BinaryTree<String>>();
 		for(String token : postfix) {
-			if(isVariable(token) || isDouble(token)) {
+			if(!isOperator(token)) {
 				stack.push(new BinaryTree<String>(token));
 				continue;
-			}else if(!isOperator(token) && !isVariable(token) && !isDouble(token)) {
-				throw new IllegalArgumentException("Variable must be defined.");
 			}
 			else if(isOperator(token)) {
 				BinaryTree<String> right = stack.pop();
 				BinaryTree<String> left = stack.pop();
 				stack.push(new BinaryTree<String>(token, left, right));
+				this.setTree(token, left, right);
 			}
 		}
 		return stack.pop();
@@ -109,7 +109,7 @@ public class ExpressionTree extends BinaryTree<String> implements ExpressionTree
 	
 	public void displayPostfix() {
 		String post = "";
-		Iterator<String> it = postfixToExpressionTree(postfix).getPostorderIterator();
+		Iterator<String> it = getPostorderIterator();
 		while(it.hasNext()) {
 			post += it.next();
 			if(it.hasNext()) {

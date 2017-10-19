@@ -54,10 +54,16 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 	}
 
 	public int getHeight() {
+		if(root == null) {
+			return 0;
+		}
 		return root.getHeight();
 	}
 
 	public int getNumberOfNodes() {
+		if(root == null) {
+			return 0;
+		}
 		return root.getNumberOfNodes();
 	}
 
@@ -99,14 +105,16 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 			current = root;
 			populateStack(current);
 		}
-		
-		private void populateStack(BinaryNode<T> node){
-			nodeStack.add(node);
-			if(node.hasRightChild()){
-				populateStack(node.getRightChild());
-			}
-			if(node.hasLeftChild()){
-				populateStack(node.getLeftChild());
+
+		private void populateStack(BinaryNode<T> node) {
+			if (node != null) {
+				nodeStack.add(node);
+				if (node.hasRightChild()) {
+					populateStack(node.getRightChild());
+				}
+				if (node.hasLeftChild()) {
+					populateStack(node.getLeftChild());
+				}
 			}
 		}
 
